@@ -1,28 +1,26 @@
 #ifndef MAIN_H
 #define MAIN_H
 
+#include <unistd.h>
 #include <stdlib.h>
 #include <stdarg.h>
-#include <stddef.h>
-#include <stdio.h>
-
-int _printf(const char *format, ...);
-int (*check_specifier(const char*))(va_list);
 /**
- * struct func - struct for specifier to printer
- * @t: character to compare
- * @f: function to handle printing
+ * struct convert - defines a structure for symbols and functions
+ * @sym: The operator
+ * @f: The function associated
  */
-typedef struct func
+struct convert
 {
-		char *t;
-			int (*f)(va_list);
-} func_t;
+		char *sym;
+		int (*f)(va_list);
+};
+typedef struct convert conver_t;
 
+/*Main functions*/
+int parser(const char *format, conver_t f_list[], va_list arg_list);
+int _printf(const char *format, ...);
+int _write_char(char);
 int print_char(va_list);
-int print_str(va_list);
-int print_cent(va_list);
-int print_int(va_list);
-int print_dec(va_list);
-
+int print_string(va_list);
+int print_percent(va_list);
 #endif
